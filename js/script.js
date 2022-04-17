@@ -1,1 +1,0 @@
-var weatherKey = "dff97e676f389487cd5e3a16a8bd3463"
