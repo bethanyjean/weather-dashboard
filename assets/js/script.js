@@ -18,7 +18,8 @@ var getLatLong = function(city){
             if (response.ok) {
                 console.log(response);
                 response.json().then(function(data){
-                    parseLatLong(data.items);
+                    console.log(data);
+                    parseLatLong(data);
                 });
             } else {
                 console.log("error: " + response.statusText);
@@ -54,7 +55,8 @@ var getWeather = function() {
             if (response.ok) {
                 console.log(response);
                 response.json().then(function(data){
-                    console.log(data);
+                    displayCurrentWeather(data);
+                    displayForecast(data);
                 });
             } else {
                 console.log("error: " + response.statusText);
@@ -65,8 +67,26 @@ var getWeather = function() {
         });
 };
 
+var displayWeather = function(weather) {
+    console.log(weather);
+    var currentIcon = weather
+    getIcon(weather.current.weather.icon);
+    var currentTemp = document.createElement("div");
+    currentTemp.textContent = "Temp: " + weather.current.temp + " F";
+    currentWeatherE1.append(currentTemp);
+    var currentWind = document.createElement("div");
+    currentWind.textContent = "Wind: " +weather.current.wind_speed + " MPH";
+    currentWeatherE1.append(currentWind);
+    var currentHumid = document.createElement("div");
+    currentHumid.textContent = "Humidity: " + weather.current.humidity + " %";
+    currentWeatherE1.append(currentHumid);
+    var currentUVI = document.createElement("div");
+    currentUVI = "UV Index: " + weather.current.uvi;
+    currentWeatherE1.append(currentUVI);
+}
+
 
 
 //event listeners
 cityFormE1.addEventListener("submit", formSubmitHandler);
-cityButtonsE1.addEventListener("click", cityClickHandler);
+// cityButtonsE1.addEventListener("click", cityClickHandler);
