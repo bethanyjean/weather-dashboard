@@ -71,7 +71,7 @@
   }
   
   
-  .hero {
+  header {
     padding: 3% 4%;
     background:linear-gradient(to left, var(--primary) 0%, var(--secondary) 100%);;
     color: var(--white);
