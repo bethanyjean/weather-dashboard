@@ -24,3 +24,5 @@ HTML
 JavaScript  
 JQuery  
 OpenWeather One Call API  
+
+Deployed site: https://bethanyjean.github.io/weather-dashboard/
