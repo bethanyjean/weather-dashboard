@@ -57,6 +57,9 @@ var previousCityHandler = function (prevCity) {
 }
 
 var clearForecast = function() { 
+    while (forecastEl.firstChild) {  
+        forecastEl.removeChild(forecastEl.firstChild);
+    }
     while (currentWeatherE1.firstChild) {  
     currentWeatherE1.removeChild(currentWeatherE1.firstChild);
 }}
