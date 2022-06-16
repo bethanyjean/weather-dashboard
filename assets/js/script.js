@@ -12,6 +12,7 @@ var savedCities = []
 var currentWeatherE1 = document.querySelector('#current-weather')
 var city = '';
 var previousCitiesE1 = document.querySelector("#previous-cities");
+var forecastEl = document.querySelector('#forecast');
 
 var getLatLong = function(city){
    var thisApi =  geoApi + city + '&limit=1' + weatherKey;
@@ -63,6 +64,7 @@ var loadHistory = function() {
     for (let i = 0; i < savedCities.length; i++) {
         var pCity = document.createElement('p');
         pCity.setAttribute('class', 'previous-city');
+        pCity.setAttribute('id', savedCities[i])
         pCity.textContent=savedCities[i];
         previousCitiesE1.append(pCity);  
     }
@@ -98,7 +100,7 @@ var getWeather = function() {
                 response.json().then(function(data){
                     displayCurrentWeather(data);
                     saveCity();
-                    // displayForecast(data);
+                    displayForecast(data.daily);
                 });
             } else {
                 console.log("error: " + response.statusText);
@@ -108,6 +110,42 @@ var getWeather = function() {
             alert("unable to connect");
         });
 };
+
+function convertTimestamp(timestamp) {
+    var d = new Date(timestamp * 1000), // Convert the passed timestamp to milliseconds
+        yyyy = d.getFullYear(),
+        mm = ('0' + (d.getMonth() + 1)).slice(-2),  // Months are zero based. Add leading 0.
+        dd = ('0' + d.getDate()).slice(-2),         // Add leading 0.
+        dateFormat = '(' + mm + '/' + dd + '/' + yyyy + ')';
+        return dateFormat;
+}
+
+var displayForecast = function(forecast) {
+    let i = 0;
+    while (i<5) {
+        var newCard = document.createElement('div')
+        newCard.setAttribute("class", 'forecast card col');
+        var date = document.createElement('p');
+        date.setAttribute('class', 'forecast-data');
+        dateFormat = convertTimestamp(forecast[i].dt);
+        date.textContent = dateFormat;
+        newCard.append(date);
+        var icon = document.createElement('img');
+        icon.setAttribute('src', iconUrl + forecast[i].weather[0].icon + "@2x.png")
+        newCard.append(icon);
+        var currentTemp = document.createElement("div");
+        currentTemp.textContent = "Temp: " + forecast[i].temp.day + " F";
+        newCard.append(currentTemp);
+        var currentWind = document.createElement("div");
+        currentWind.textContent = "Wind: " + forecast[i].wind_speed + " MPH";
+        newCard.append(currentWind);
+        var currentHumid = document.createElement("div");
+        currentHumid.textContent = "Humidity: " + forecast[i].humidity + " %";
+        newCard.append(currentHumid);
+        forecastEl.append(newCard);
+        i++;
+    };
+}
 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
@@ -129,7 +167,7 @@ var displayCurrentWeather = function(weather) {
     currentTemp.textContent = "Temp: " + weather.current.temp + " F";
     currentWeatherE1.append(currentTemp);
     var currentWind = document.createElement("div");
-    currentWind.textContent = "Wind: " +weather.current.wind_speed + " MPH";
+    currentWind.textContent = "Wind: " + weather.current.wind_speed + " MPH";
     currentWeatherE1.append(currentWind);
     var currentHumid = document.createElement("div");
     currentHumid.textContent = "Humidity: " + weather.current.humidity + " %";

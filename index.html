@@ -19,27 +19,29 @@
             <div class="card">
                 <h3 class="card-header">Search for a City:</h3>
                 <form id="city-form" class="form">
-                    <input name="city" id="city" type="text" autofocus="true" placeholder="Atlanta"  class="form-input"/>
+                    <input name="city" id="city" type="text" autofocus="true" placeholder="Atlanta" class="form-input" />
                     <button type="submit" class="btn">Search</button>
                 </form>
-            
-
-                <div id="recent-cities" class="city-list" id="city-buttons">
-                </div>
-            </div> 
+            </div>
+            <div class="row"></div>
+            <div id="previous-cities" class="city-list">
+            </div>
+    
         </div>
-        
-         <div class="col-12 col-md-8">
+    
+        <div class="col-12 col-md-8">
             <div class="card">
+                <h3 class="card-header">Current Weather:</h3>
                 <div id="current-weather" class="current-weather">
-                  
                 </div>
             </div>
+            <div class="card"></div>
+            <h3 class="card-header">5-Day Forecast:</h3>
+            <div id="forecast">
+                <h3></h3>
+            </div>
         </div>
-        <div class="col-12 col-md-8" id = "previous-cities">
-            <h3></h3>
-        </div>
-
+    
     </main>
     
     <script src="./assets/js/script.js"></script>
