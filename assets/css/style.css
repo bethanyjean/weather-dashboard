@@ -85,3 +85,18 @@
   .card-header {
      text-align: left; 
   }
+
+  .low {
+    background-color: green;
+    color: var(--white);
+  }
+
+  .medium {
+    background-color: yellow;
+    color: var(--white);
+  }
+
+  .high {
+    background-color: red;
+    columns: var(--white);
+  }
