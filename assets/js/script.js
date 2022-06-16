@@ -50,6 +50,12 @@ var formSubmitHandler = function (event){
     getLatLong(city);
 }
 
+var previousCityHandler = function (prevCity) {
+    clearForecast();
+    city = prevCity;
+    getLatLong(city);
+}
+
 var clearForecast = function() { 
     while (currentWeatherE1.firstChild) {  
     currentWeatherE1.removeChild(currentWeatherE1.firstChild);
@@ -62,12 +68,16 @@ var clearCities = function() {
 
 var loadHistory = function() {
     for (let i = 0; i < savedCities.length; i++) {
+        var pCityLi = document.createElement('li');
+        pCityLi.setAttribute('class', 'previous-city-list');
         var pCity = document.createElement('p');
-        pCity.setAttribute('class', 'previous-city');
-        pCity.setAttribute('id', savedCities[i])
+        pCity.setAttribute('class', 'previous-city')
+        pCity.setAttribute('id', savedCities[i]);
         pCity.textContent=savedCities[i];
+        pCityLi.append(pCity);
         previousCitiesE1.append(pCity);  
     }
+    setList();
 }
 
 var loadcities = function() {
@@ -185,8 +195,17 @@ var displayCurrentWeather = function(weather) {
     currentWeatherE1.append(currentUVI);
 }
 
+var setList = function() {
+    document.querySelectorAll('.previous-city').forEach(item=> {
+        item.addEventListener('click', 
+        function (getID) {
+            var prevCity = getID.target.id;
+            console.log(prevCity);
+            previousCityHandler(prevCity);
+        })
+    })
+}
 
 loadcities();
 //event listeners
 cityFormE1.addEventListener("submit", formSubmitHandler);
-// cityButtonsE1.addEventListener("click", cityClickHandler);

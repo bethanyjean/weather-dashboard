@@ -118,4 +118,11 @@
   .previous-city {
     background-color: var(--tertiary);
     color: var(--white);
+    text-align: center;
+  }
+
+  .previous-city:hover {
+    color: var(--primary);
+    background-color: var(--tertiary);
+    transform: translate(0, 0);
   }
